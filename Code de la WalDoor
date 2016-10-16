@@ -18,6 +18,8 @@ void setup() {
   
   Serial.begin(9600);   // open the Serial for show data
   digitalWrite(led_verte, HIGH);
+  monServo.write(180); 
+  pinMode(BoutonLock, OUTPUT);
   pinMode(led_verte, OUTPUT);
   pinMode(led_rouge, OUTPUT);
   monServo.attach(3);
@@ -43,7 +45,7 @@ void loop() {
    if(tag->getCardNumber() == 109,191,165,197,178 or 164,212,8,111,23 && led_rouge == HIGH) 
    {
      
-     monServo.write(90); 
+     monServo.write(180); 
      digitalWrite(led_rouge, LOW);
      digitalWrite(led_verte, HIGH);
      delay(15);   
