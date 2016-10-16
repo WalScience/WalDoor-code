@@ -1,0 +1,76 @@
+#include <Servo.h>
+#include <SPI.h>
+#include <SoftwareSerial.h>
+#include "RFIDRdm630.h"
+
+Servo monServo;
+
+int rxPin = 6; 
+int txPin = 7;
+int led_rouge = 6;
+int led_verte = 7;
+int Etat;
+int BoutonLock = 4;
+
+RFIDtag * tag;
+RFIDRdm630 reader = RFIDRdm630(rxPin,txPin); 
+
+void setup() {
+  
+  Serial.begin(9600);   // open the Serial for show data
+  digitalWrite(led_verte, HIGH);
+  pinMode(led_verte, OUTPUT);
+  pinMode(led_rouge, OUTPUT);
+  monServo.attach(3);
+  
+}
+
+void loop() {
+
+  if (reader.isAvailable()){  
+
+    tag = reader.getTag();  
+    
+   if(tag->getCardNumber() == 109,191,165,197,178 or 164,212,8,111,23 && led_verte == HIGH) 
+   {
+    
+     monServo.write(90); 
+     digitalWrite(led_rouge, HIGH);
+     digitalWrite(led_verte, LOW);
+     delay(15);  
+     
+   }
+   
+   if(tag->getCardNumber() == 109,191,165,197,178 or 164,212,8,111,23 && led_rouge == HIGH) 
+   {
+     
+     monServo.write(90); 
+     digitalWrite(led_rouge, LOW);
+     digitalWrite(led_verte, HIGH);
+     delay(15);   
+     
+   }
+   
+  }
+  
+  if(BoutonLock == HIGH && led_verte == HIGH) 
+   {
+     
+     monServo.write(90); 
+     digitalWrite(led_rouge, HIGH);
+     digitalWrite(led_verte, LOW);
+     delay(15); 
+     
+   }
+   
+   if(BoutonLock == HIGH && led_rouge == HIGH) 
+   {
+     
+     monServo.write(90); 
+     digitalWrite(led_rouge, LOW);
+     digitalWrite(led_verte, HIGH);
+     delay(15);   
+     
+   }
+  
+}
