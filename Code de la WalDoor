@@ -9,7 +9,6 @@ int rxPin = 6;
 int txPin = 7;
 int led_rouge = 6;
 int led_verte = 7;
-int Etat;
 int BoutonLock = 4;
 
 RFIDtag * tag;
